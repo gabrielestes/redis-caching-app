@@ -6,10 +6,18 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+# Use for caching
 gem 'redis'
 gem 'redis-rails'
-gem 'sidekiq'
-gem 'sinatra', github: 'sinatra/sinatra'
+gem 'redis-cache', '~> 1.1'
+gem 'redis-activesupport'
+
+# Use for extracting hash from url
+gem 'httparty'
+
+# Optional for quick retrieval of netflix titles
+gem 'netflix_roulette'
+
 # gem 'rack-protection', github: 'sinatra/rack-protection'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
