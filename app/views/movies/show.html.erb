@@ -1,2 +1,24 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
+<h1>
+  <%= @movie.title %>
+</h1>
+<%= @query.each do |f| %>
+  <%= f %>
+<% end %>
+<%= image_tag "#{@movie.poster}" %>
+<ul style="list-style-type:none">
+  <li>
+    <%= @movie[:release_date] %>
+  </li>
+  <li>
+    <%= @movie[:summary] %>
+  </li>
+  <li>
+    <%= @movie[:genre] %>
+  </li>
+  <li>
+    <%= @movie[:cast] %>
+  </li>
+  <li>
+    <%= @movie[:runtime] %>
+  </li>
+</ul>

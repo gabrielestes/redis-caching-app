@@ -1,21 +1,28 @@
 class MoviesController < ApplicationController
   def index
-    title = ('attack on titan').gsub(/\s/, '%20')
-    create_url_path(title)
-    get_parsed_url
+    @movie = Movie.new(title: params[:title])
   end
 
   def show
+    @movie = Movie.new(title: params[:title])
+    # if @movie.save
+      create_url_path
+      get_parsed_url
+      set_movie_values
+    # else
+      # redirect_to root_path
+    # end
   end
 
   private
 
-  def create_url_path(title)
-    @movie_url = "http://netflixroulette.net/api/api.php?title=#{title}"
+  def create_url_path
+    @movie_url = "http://netflixroulette.net/api/api.php?title=#{@movie[:title]}"
   end
 
   def get_parsed_url
-    @movie_data = HTTParty.get(@movie_url).parsed_response
+    @query = HTTParty.get(@movie_url).parsed_response
+    # @poster =
   end
 
   def cache_key
@@ -24,6 +31,15 @@ class MoviesController < ApplicationController
     end
   end
 
+  def set_movie_values
+    @movie.title = @query["show_title"]
+    @movie.release_date = @movie["release_year"]
+    @movie.genre = @movie["category"]
+    @movie.cast = @movie["show_cast"]
+    @movie.summary = @movie["summary"]
+    @movie.poster = @movie["poster"]
+    @movie.runtime = @movie["runtime"]
+  end
   def perform_redis_cache
   end
 
